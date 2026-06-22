@@ -8,7 +8,7 @@ module.exports = {
       autorestart: true,
       watch: false,
       max_memory_restart: "500M", // Memory protection
-      node_args: "--env-file=../../.env.local", // Automatically loads environment variables in Node 20+
+      env_file: "../../.env.local", // PM2 native environment file loader
       env: {
         NODE_ENV: "production",
         PORT: 3000,
