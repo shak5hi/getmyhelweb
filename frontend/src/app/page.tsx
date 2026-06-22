@@ -126,8 +126,8 @@ export default function Home() {
 
               {/* Headline with word-safe letter stagger animation */}
               <WordSafeHeadline
-                text="Some homes stopped negotiating every morning."
-                className="text-3.5xl md:text-5xl lg:text-5.5xl leading-[1.12]"
+                text='Built for the mornings that start with "Didi nahi aayi."'
+                className="text-4xl md:text-5xl lg:text-5.5xl leading-[1.12] tracking-tight"
               />
 
               {/* Supporting info */}
@@ -135,9 +135,9 @@ export default function Home() {
                 variants={supportingVariants}
                 initial="hidden"
                 animate="visible"
-                className="text-[#1A0E1F]/60 text-xs md:text-sm font-sans max-w-md leading-relaxed"
+                className="text-[#1A0E1F]/70 text-base md:text-lg font-sans max-w-md leading-relaxed font-medium"
               >
-                A private service providing reliable, trained, and professional domestic support.
+                Because your day shouldn't fall apart before it even begins. A private service providing reliable, trained, and professional domestic support.
               </motion.p>
 
               {/* CTA Button */}
@@ -157,7 +157,7 @@ export default function Home() {
             </div>
 
             {/* Right Column - Vertical Framed Photo (Matches Inspo Layout) */}
-            <div className="col-span-12 md:col-span-5 flex justify-center z-10">
+            <div className="hidden md:flex col-span-12 md:col-span-5 justify-center z-10">
               <div className="w-full max-w-[340px] md:max-w-none h-[420px] md:h-[500px] lg:h-[550px] rounded-3xl overflow-hidden bg-[#1A0E1F] border border-[#1A0E1F]/10 shadow-lg relative group">
                 <img
                   src="/editorial_home.png"
