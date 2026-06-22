@@ -87,21 +87,17 @@ export async function POST(req: Request) {
     };
 
     // Timeout mechanism: 10 seconds max for SMTP
-    const sendMailPromise = transporter.sendMail(mailOptions);
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("SMTP operation timed out")), 10000)
-    );
-
-    const info = await Promise.race([sendMailPromise, timeoutPromise]) as any;
-
-    console.log(`[Waitlist API] Email sent successfully: ${info.messageId}`);
     try {
-      const testUrl = nodemailer.getTestMessageUrl(info);
-      if (testUrl) {
-        console.log(`[Waitlist API] Ethereal preview URL: ${testUrl}`);
-      }
-    } catch (e) {
-      // getTestMessageUrl can throw if it wasn't an ethereal message
+      const sendMailPromise = transporter.sendMail(mailOptions);
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("SMTP operation timed out")), 10000)
+      );
+
+      const info = await Promise.race([sendMailPromise, timeoutPromise]) as any;
+      console.log(`[Waitlist API] Email sent successfully: ${info.messageId}`);
+    } catch (emailError) {
+      console.error("[Waitlist API] Warning: Failed to send notification email, but data is saved in CSV.", emailError);
+      // We DO NOT return a 500 error here. The data is safely in the CSV, so we tell the user it succeeded!
     }
 
     return NextResponse.json({ success: true });
