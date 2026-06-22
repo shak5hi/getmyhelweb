@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { LRUCache } from "lru-cache";
+import fs from "fs";
+import path from "path";
 
 // Rate limiting setup: Max 5 requests per IP per minute
 const rateLimitCache = new LRUCache<string, number>({
@@ -37,6 +39,18 @@ export async function POST(req: Request) {
     }
 
     console.log(`[Waitlist API] Processing registration for: ${contact}`);
+
+    // --- SAVE TO CSV ---
+    try {
+      const csvLine = `"${new Date().toISOString()}","${contact.replace(/"/g, '""')}"\n`;
+      // Save directly to the frontend root folder (works in development and PM2 standalone)
+      const filePath = path.join(process.cwd(), 'waitlist_data.csv');
+      fs.appendFileSync(filePath, csvLine);
+      console.log(`[Waitlist API] Successfully saved to CSV: ${contact}`);
+    } catch (fsError) {
+      console.error("[Waitlist API] Failed to save to CSV:", fsError);
+    }
+    // -------------------
 
     let transporter: nodemailer.Transporter;
 
