@@ -79,8 +79,8 @@ export async function POST(req: Request) {
     }
 
     const mailOptions = {
-      from: process.env.SMTP_FROM || '"GetMyHelp System" <noreply@getmyhelp.in>',
-      to: "support@getmyhelp.in",
+      from: process.env.SMTP_FROM || process.env.SMTP_USER, // MUST match the logged-in user!
+      to: process.env.SMTP_USER || "support@getmyhelp.in",
       subject: "New Waitlist Registration",
       text: `A new user has joined the waitlist.\nContact Info: ${contact}`,
       html: `<b>A new user has joined the waitlist.</b><br>Contact Info: ${contact}`,
