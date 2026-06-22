@@ -14,11 +14,6 @@ npm install
 echo "Building the application..."
 npm run build
 
-# Copy necessary files to standalone directory
-echo "Updating standalone assets..."
-cp -r public .next/standalone/
-cp -r .next/static .next/standalone/.next/
-
 # Restart PM2 process
 echo "Restarting application via PM2..."
 pm2 restart ecosystem.config.js
