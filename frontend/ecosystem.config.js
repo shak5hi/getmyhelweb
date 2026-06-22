@@ -1,3 +1,23 @@
+const fs = require('fs');
+const path = require('path');
+
+// Manually read and parse .env.local to ensure 100% bulletproof injection
+const envPath = path.resolve(__dirname, '.env.local');
+const envVariables = {};
+
+if (fs.existsSync(envPath)) {
+  const envFile = fs.readFileSync(envPath, 'utf8');
+  envFile.split('\n').forEach(line => {
+    const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+    if (match) {
+      let key = match[1];
+      let value = match[2] || '';
+      value = value.replace(/(^['"]|['"]$)/g, ''); // Remove surrounding quotes
+      envVariables[key] = value;
+    }
+  });
+}
+
 module.exports = {
   apps: [
     {
@@ -8,10 +28,10 @@ module.exports = {
       autorestart: true,
       watch: false,
       max_memory_restart: "500M", // Memory protection
-      env_file: "../../.env.local", // PM2 native environment file loader
       env: {
         NODE_ENV: "production",
         PORT: 3000,
+        ...envVariables // Inject parsed variables directly into Node process
       },
     },
   ],
