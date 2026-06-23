@@ -137,7 +137,7 @@ export default function Home() {
                 animate="visible"
                 className="text-[#1A0E1F]/70 text-base md:text-lg font-sans max-w-md leading-relaxed font-medium"
               >
-                Because your day shouldn't fall apart before it even begins. A private service providing reliable, trained, and professional domestic support.
+                Because your day shouldn't fall apart before it even begins.
               </motion.p>
 
               {/* CTA Button */}
