@@ -46,10 +46,11 @@ export default function WordSafeHeadline({ text, className = "" }: WordSafeHeadl
       animate="visible"
     >
       {words.map((word, wordIdx) => {
-        // Highlight "every morning." or variations
+        // Highlight specific hook words
         const isHighlightWord =
-          word.toLowerCase().includes("every") ||
-          word.toLowerCase().includes("morning");
+          word.toLowerCase().includes("didi") ||
+          word.toLowerCase().includes("nahi") ||
+          word.toLowerCase().includes("aayi");
 
         return (
           <React.Fragment key={wordIdx}>
