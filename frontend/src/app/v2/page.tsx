@@ -15,6 +15,17 @@ const faqs = [
   { q: "Can I add or remove services?", a: "Absolutely. You can adjust services, timing, or helper assignments at any time through the society dashboard." },
 ];
 
+const servicesData = [
+  { label: "Daily Maid", img: "/DailyMaid.png" },
+  { label: "Cooking Help", img: "/CookingHelp.png" },
+  { label: "Sweeping & Mopping", img: "/Sweeping&Mopping.png" },
+  { label: "Utensil Washing", img: "/UtensilWashing.png" },
+  { label: "Instant Backup", img: "/InstantBackup.png" },
+  { label: "Monthly Plan", img: "/MonthlyPlan.png" },
+  { label: "Society Records", img: "/society-heropage.png" },
+  { label: "Worker Verification", img: "/WorkerVerification.png" },
+];
+
 export default function V2Page() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
@@ -23,6 +34,7 @@ export default function V2Page() {
   const imageRef = useRef<HTMLDivElement>(null);
   const societyRef = useRef<HTMLDivElement>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [activeService, setActiveService] = useState<string | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -95,7 +107,7 @@ export default function V2Page() {
       {/* ===== ZONE 2: Main Page Content (Pronto style) ===== */}
 
       {/* WHY US — left aligned headline + 3 benefit cards */}
-      <section className="w-full bg-[#F0F2F5] px-6 md:px-16 py-16">
+      <section id="why-us" className="w-full bg-[#F0F2F5] px-6 md:px-16 py-16">
         <div className="max-w-[1100px] mx-auto">
           <p className="text-xs font-bold tracking-[0.2em] text-[#2A005E] uppercase mb-3">WHY GETMYHELP</p>
           <h2 className="text-5xl md:text-7xl font-black text-gray-900 leading-[1.0] tracking-tight mb-3">
@@ -109,7 +121,7 @@ export default function V2Page() {
               { label: "Society-wide Pricing", desc: "One transparent rate for every flat. Agreed once." },
               { label: "Instant Backup", desc: "Absent helper? A replacement is arranged same-day." },
             ].map(({ label, desc }) => (
-              <div key={label} className="bg-[#E8F5E9] rounded-2xl p-6 border border-[#c8e6c9]">
+              <div key={label} className="bg-[#F3E8FF] rounded-2xl p-6 border border-[#E9D5FF]">
                 <p className="text-base font-black text-gray-900 mb-1">{label}</p>
                 <p className="text-sm text-gray-500">{desc}</p>
               </div>
@@ -126,27 +138,19 @@ export default function V2Page() {
             Trusted house help,<br />standardised for your society.
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {[
-              { label: "Daily Maid", img: "/DailyMaid.png" },
-              { label: "Cooking Help", img: "/CookingHelp.png" },
-              { label: "Sweeping & Mopping", img: "/Sweeping&Mopping.png" },
-              { label: "Utensil Washing", img: "/UtensilWashing.png" },
-              { label: "Instant Backup", img: "/InstantBackup.png" },
-              { label: "Monthly Plan", img: "/MonthlyPlan.png" },
-              { label: "Society Records", img: "/society-heropage.png" },
-              { label: "Worker Verification", img: "/WorkerVerification.png" },
-            ].map(({ label, img }) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {servicesData.map(({ label, img }) => (
               <div
                 key={label}
-                className="group bg-white rounded-2xl p-3 border border-gray-200 hover:border-[#2A005E] hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col"
+                onClick={() => setActiveService(label)}
+                className="group bg-white rounded-2xl p-4 border border-gray-200 hover:border-[#2A005E] hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-start"
               >
-                <div className="w-full aspect-square rounded-xl overflow-hidden mb-3 bg-gray-50 flex items-center justify-center">
-                  <img src={img} alt={label} className="w-3/4 h-3/4 object-contain" />
+                <div className="w-full aspect-square rounded-xl overflow-hidden mb-4 bg-gray-50 flex items-center justify-center">
+                  <img src={img} alt={label} className="w-[85%] h-[85%] object-contain transition-transform duration-300 group-hover:scale-105" />
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-800">{label}</span>
-                  <span className="text-gray-400 group-hover:text-[#2A005E] transition-colors">→</span>
+                  <span className="text-[15px] font-bold text-gray-800">{label}</span>
+                  <span className={`text-gray-400 group-hover:text-[#2A005E] transition-colors ${activeService === label ? 'rotate-90' : ''}`}>→</span>
                 </div>
               </div>
             ))}
@@ -154,8 +158,126 @@ export default function V2Page() {
         </div>
       </section>
 
+      {/* SERVICE MODAL */}
+      {activeService && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setActiveService(null)}>
+          <div 
+            className="bg-white w-full max-w-[1200px] h-full max-h-[90vh] rounded-3xl overflow-y-auto relative shadow-2xl animate-in fade-in zoom-in-95 duration-200"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button 
+              onClick={() => setActiveService(null)}
+              className="absolute top-6 right-6 w-12 h-12 bg-white/80 backdrop-blur hover:bg-gray-100 border border-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-800 text-xl font-light z-50 transition-colors shadow-sm"
+            >
+              ✕
+            </button>
+            
+            {/* 1. Top Hero Section */}
+            <div className="relative w-full px-8 md:px-16 py-12 md:py-20 overflow-hidden bg-white">
+              {/* Purple Gradient */}
+              <div className="absolute top-0 left-0 w-[70%] h-[150%] bg-gradient-to-br from-[#F3E8FF] to-transparent opacity-80 pointer-events-none -translate-x-1/4 -translate-y-1/4 rounded-full blur-3xl"></div>
+              
+              <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div>
+                  <div className="flex gap-2 text-xs font-semibold text-gray-400 mb-8">
+                    <span>Home</span> <span className="text-gray-300">/</span>
+                    <span>Services</span> <span className="text-gray-300">/</span>
+                    <span className="text-gray-800">{activeService}</span>
+                  </div>
+                  <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-6 leading-[1.05] tracking-tight">{activeService}</h2>
+                  <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-[95%]">
+                    These are some basic services we provide, and everything can be customised according to you and your subscription plan.
+                  </p>
+                  <button className="bg-[#2A005E] text-white px-8 py-4 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-[#2A005E]/20">
+                    Request for Society
+                  </button>
+                </div>
+                
+                <div className="bg-[#F5F5F7] rounded-[2rem] aspect-[4/3] flex items-center justify-center p-12">
+                  <img 
+                    src={servicesData.find(s => s.label === activeService)?.img} 
+                    alt={activeService} 
+                    className="w-full h-full object-contain" 
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Included / Not Included */}
+            <div className="w-full px-8 md:px-16 py-16 bg-white border-t border-gray-100">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                 <div>
+                   <h3 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-3">
+                     <div className="w-6 h-6 rounded-full bg-[#F3E8FF] flex items-center justify-center">
+                       <span className="text-[#2A005E] text-sm">✓</span>
+                     </div>
+                     What's included
+                   </h3>
+                   <ul className="space-y-4">
+                     {["Standard cleaning according to your society's agreed scope", "Use of basic cleaning materials if requested", "Verified and trained professional", "Free replacements for absent helpers"].map((item, i) => (
+                       <li key={i} className="flex items-start gap-3 text-sm text-gray-600 font-medium">
+                         <span className="text-[#2A005E] mt-0.5">•</span> {item}
+                       </li>
+                     ))}
+                   </ul>
+                 </div>
+                 <div>
+                   <h3 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-3">
+                     <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center">
+                       <span className="text-red-500 text-sm">✕</span>
+                     </div>
+                     Not included
+                   </h3>
+                   <ul className="space-y-4">
+                     {["Deep cleaning of unreachable areas", "Heavy lifting or moving furniture", "Tasks outside the agreed society standard list", "External shopping or errands"].map((item, i) => (
+                       <li key={i} className="flex items-start gap-3 text-sm text-gray-600 font-medium">
+                         <span className="text-[#2A005E] mt-0.5">•</span> {item}
+                       </li>
+                     ))}
+                   </ul>
+                 </div>
+               </div>
+            </div>
+
+            {/* 3. More Services Grid */}
+            <div className="w-full px-8 md:px-16 py-16 bg-[#F9FAFB] border-t border-gray-100">
+               <h3 className="text-3xl md:text-4xl font-black text-gray-900 mb-10 tracking-tight">More ways to keep your home clean</h3>
+               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                 {servicesData.filter(s => s.label !== activeService).map(s => (
+                   <div 
+                     key={s.label} 
+                     className="bg-white rounded-2xl p-4 border border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:border-[#2A005E] hover:shadow-md transition-all" 
+                     onClick={() => setActiveService(s.label)}
+                   >
+                     <img src={s.img} alt={s.label} className="w-16 h-16 object-contain mb-3" />
+                     <span className="text-[11px] font-bold text-gray-800 text-center leading-tight">{s.label}</span>
+                   </div>
+                 ))}
+               </div>
+            </div>
+
+            {/* 4. Bottom CTA */}
+            <div className="w-full px-8 md:px-16 py-16 bg-white">
+               <div className="bg-[#F3E8FF] rounded-3xl p-12 md:p-20 text-center flex flex-col items-center justify-center relative overflow-hidden border border-[#E9D5FF]">
+                 <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-5 relative z-10 tracking-tight max-w-2xl">
+                   Get trusted house help in minutes.
+                 </h2>
+                 <p className="text-gray-600 mb-8 relative z-10 text-lg">
+                   Join the waitlist to be the first in your society to get started.
+                 </p>
+                 <button className="bg-[#2A005E] text-white px-10 py-4 rounded-full font-bold text-sm hover:scale-105 transition-transform relative z-10 shadow-xl shadow-[#2A005E]/20">
+                   Register Interest →
+                 </button>
+               </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
       {/* HOW IT WORKS — Waterfall Timeline */}
-      <section className="w-full bg-[#0A0A0A] px-6 md:px-16 py-24">
+      <section id="how-it-works" className="w-full bg-[#0A0A0A] px-6 md:px-16 py-24">
         <div className="max-w-[1200px] mx-auto">
           
           <div className="grid grid-cols-1 md:grid-cols-3 border-x border-white/10 relative">
@@ -220,12 +342,12 @@ export default function V2Page() {
 
 
       {/* FAQ — Accordion like Pronto */}
-      <section className="w-full bg-[#F0F2F5] px-6 md:px-16 py-16 border-t border-gray-200">
+      <section id="faqs" className="w-full bg-[#F0F2F5] px-6 md:px-16 py-16 border-t border-gray-200">
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-8 lg:gap-12 items-center">
             
-            {/* Left: FAQs (Moved slightly right via padding if needed, but left aligned here for structure) */}
-            <div className="flex flex-col xl:pl-8">
+            {/* Left: FAQs */}
+            <div className="flex flex-col lg:pr-8">
               <p className="text-xs font-bold tracking-[0.2em] text-[#2A005E] uppercase mb-3">FAQ'S</p>
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-10">
                 Frequently Asked<br />Questions
@@ -255,8 +377,12 @@ export default function V2Page() {
             </div>
 
             {/* Right: FAQ Image */}
-            <div className="w-full h-full flex items-center justify-center">
-              <img src="/FAQ.png" alt="FAQ Illustration" className="w-full max-w-[500px] object-contain drop-shadow-2xl rounded-2xl" />
+            <div className="hidden lg:flex w-full h-full items-center justify-center relative">
+              <img 
+                src="/FAQ.png" 
+                alt="FAQ Illustration" 
+                className="w-full h-[130%] object-contain object-center drop-shadow-2xl scale-[2.2] translate-y-16" 
+              />
             </div>
 
           </div>
@@ -264,7 +390,7 @@ export default function V2Page() {
       </section>
 
       {/* CTA BANNER */}
-      <section className="w-full bg-[#E8F5E9] px-6 md:px-16 py-16">
+      <section className="w-full bg-[#F3E8FF] px-6 md:px-16 py-16 border-t border-[#E9D5FF]">
         <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-2">
