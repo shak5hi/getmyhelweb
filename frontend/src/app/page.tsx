@@ -16,14 +16,142 @@ const faqs = [
 ];
 
 const servicesData = [
-  { label: "Daily Maid", img: "/DailyMaid.png" },
-  { label: "Cooking Help", img: "/CookingHelp.png" },
-  { label: "Sweeping & Mopping", img: "/Sweeping&Mopping.png" },
-  { label: "Utensil Washing", img: "/UtensilWashing.png" },
-  { label: "Instant Backup", img: "/InstantBackup.png" },
-  { label: "Monthly Plan", img: "/MonthlyPlan.png" },
-  { label: "Society Records", img: "/society-heropage.png" },
-  { label: "Worker Verification", img: "/WorkerVerification.png" },
+  {
+    label: "Daily Maid",
+    img: "/DailyMaid.png",
+    desc: "Professional daily maid services tailored for society homes. Keep your living spaces spotless, dust-free, and tidy with scheduled daily visits.",
+    included: [
+      "Sweeping and dusting of all rooms",
+      "Mopping of floors with standard floor cleaners",
+      "Trash disposal and bin bag replacement",
+      "Arranging cushions, beds, and light tidying"
+    ],
+    notIncluded: [
+      "Deep stain scrubbing or carpet wash",
+      "Deep cleaning of high ceilings/fans",
+      "Washing of personal clothes",
+      "Running outdoor errands or grocery shopping"
+    ]
+  },
+  {
+    label: "Cooking Help",
+    img: "/CookingHelp.png",
+    desc: "Home-cooked meals prepared in your own kitchen by experienced home chefs. Standardized menus or customized meals according to your dietary needs.",
+    included: [
+      "Preparing breakfast, lunch, or dinner as per schedule",
+      "Chopping vegetables and basic meal prep",
+      "Cleaning the stove and kitchen platform post-cooking",
+      "Hygiene-first food handling"
+    ],
+    notIncluded: [
+      "Grocery shopping or fetching ingredients",
+      "Deep cleaning of chimney or kitchen cabinets",
+      "Utensil washing (unless subscribed separately)",
+      "Catering for large parties (>8 guests)"
+    ]
+  },
+  {
+    label: "Sweeping & Mopping",
+    img: "/Sweeping&Mopping.png",
+    desc: "Dedicated floor hygiene maintenance. Thorough sweeping and mopping to keep your floors shiny, germ-free, and clean.",
+    included: [
+      "Dry sweeping of all rooms and balconies",
+      "Wet mopping using approved floor cleaner",
+      "Stain spot cleaning on tiled surfaces",
+      "Moving light furniture to clean underneath"
+    ],
+    notIncluded: [
+      "Polishing or marble restoration",
+      "Wall scrubbing or ceiling web removal",
+      "Cleaning of balconies in heavy rain/dust storms",
+      "Hand-scrubbing stubborn chemical stains"
+    ]
+  },
+  {
+    label: "Utensil Washing",
+    img: "/UtensilWashing.png",
+    desc: "Prompt utensil and dishwashing service to keep your kitchen sink clean and odor-free. Double-sanitized and organized.",
+    included: [
+      "Washing all kitchen utensils, plates, and cutlery",
+      "Cleaning the sink area and wiping wet surfaces",
+      "Organizing clean utensils back on racks",
+      "Scrubbing pots and pans with high-grade soap"
+    ],
+    notIncluded: [
+      "Cleaning heavy restaurant-grade ovens/grills",
+      "Polishing copper or silver cutlery",
+      "Organizing kitchen pantries",
+      "Discarding expired food from containers"
+    ]
+  },
+  {
+    label: "Instant Backup",
+    img: "/InstantBackup.png",
+    desc: "Never worry about your domestic helper's absence. Get verified and trained backup professionals sent to your doorstep on demand.",
+    included: [
+      "On-demand backup helper dispatch within hours",
+      "Pre-vetted and background-verified professionals",
+      "Adherence to your standard society pricing rules",
+      "Seamless billing integrated with your monthly plan"
+    ],
+    notIncluded: [
+      "Permanent allocation of the backup worker",
+      "Custom menu changes at short notice (for cooks)",
+      "Service guarantee if requested after cutoff time (8 AM)",
+      "Waiver of standard emergency booking rates"
+    ]
+  },
+  {
+    label: "Monthly Plan",
+    img: "/MonthlyPlan.png",
+    desc: "All-in-one monthly subscriptions combining multiple domestic services. Standardized rates approved by your society's RWA.",
+    included: [
+      "Consolidated billing for maid, cooking, and utensil services",
+      "Guaranteed backup worker availability",
+      "Priority support from society relationship managers",
+      "Monthly attendance and performance reports"
+    ],
+    notIncluded: [
+      "Prorated refunds for individual days skipped by choice",
+      "Ad-hoc task requests outside of your selected plan",
+      "Sharing plan benefits with external flats",
+      "Custom individual rate negotiations"
+    ]
+  },
+  {
+    label: "Society Records",
+    img: "/society-heropage.png",
+    desc: "Complete transparency with digital logs. Track daily worker attendance, check-in times, and verification certificates in one place.",
+    included: [
+      "Daily digital check-in/check-out logs",
+      "Live attendance status accessible via RWA dashboard",
+      "Archived records of helper deployment history",
+      "Direct billing invoices and payment tracking"
+    ],
+    notIncluded: [
+      "Modifying logs manually by residents",
+      "Direct communication with helpers' personal contacts",
+      "CCTV/video monitoring logs",
+      "Attendance tracking of personal guests"
+    ]
+  },
+  {
+    label: "Worker Verification",
+    img: "/WorkerVerification.png",
+    desc: "Safety first. Comprehensive background verification for every domestic worker entering the society premises.",
+    included: [
+      "Government-issued Photo ID verification",
+      "Permanent address check and verification",
+      "Previous reference check and rating assessment",
+      "RWA-approved helper security clearance cards"
+    ],
+    notIncluded: [
+      "Continuous real-time GPS tracking outside society",
+      "Provision of legal guarantees for personal helper conduct",
+      "Credit history or bank statement verification",
+      "Medical or health check certifications"
+    ]
+  }
 ];
 
 export default function V2Page() {
@@ -203,7 +331,7 @@ export default function V2Page() {
                   </div>
                   <h2 className="text-[12vw] md:text-[5vw] font-black text-gray-900 mb-6 leading-[1.05] tracking-tight">{activeService}</h2>
                   <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-[95%]">
-                    These are some basic services we provide, and everything can be customised according to you and your subscription plan.
+                    {servicesData.find(s => s.label === activeService)?.desc || "These are some basic services we provide, and everything can be customised according to you and your subscription plan."}
                   </p>
                   <a 
                     href="https://docs.google.com/forms/d/e/1FAIpQLSdT1TPAeiWG5AJGKwaTA0W-QZXnsLAzxj6hhF42Dz7XG5Abxw/viewform?usp=publish-editor" 
@@ -236,7 +364,7 @@ export default function V2Page() {
                      What's included
                    </h3>
                    <ul className="space-y-4">
-                     {["Standard cleaning according to your society's agreed scope", "Use of basic cleaning materials if requested", "Verified and trained professional", "Free replacements for absent helpers"].map((item, i) => (
+                     {(servicesData.find(s => s.label === activeService)?.included || ["Standard cleaning according to your society's agreed scope", "Use of basic cleaning materials if requested", "Verified and trained professional", "Free replacements for absent helpers"]).map((item, i) => (
                        <li key={i} className="flex items-start gap-3 text-sm text-gray-600 font-medium">
                          <span className="text-[#2A005E] mt-0.5">•</span> {item}
                        </li>
@@ -251,7 +379,7 @@ export default function V2Page() {
                      Not included
                    </h3>
                    <ul className="space-y-4">
-                     {["Deep cleaning of unreachable areas", "Heavy lifting or moving furniture", "Tasks outside the agreed society standard list", "External shopping or errands"].map((item, i) => (
+                     {(servicesData.find(s => s.label === activeService)?.notIncluded || ["Deep cleaning of unreachable areas", "Heavy lifting or moving furniture", "Tasks outside the agreed society standard list", "External shopping or errands"]).map((item, i) => (
                        <li key={i} className="flex items-start gap-3 text-sm text-gray-600 font-medium">
                          <span className="text-[#2A005E] mt-0.5">•</span> {item}
                        </li>
@@ -445,9 +573,21 @@ export default function V2Page() {
             </div>
             <div>
               <p className="text-white/50 text-xs font-bold tracking-widest uppercase mb-4">Services</p>
-              {["Daily Maid", "Cooking Help", "Backup Help", "Instant Replacement", "Society Plans"].map(s => (
-                <p key={s} className="text-white/40 text-sm mb-2 hover:text-white cursor-pointer transition-colors">{s}</p>
-              ))}
+              {["Daily Maid", "Cooking Help", "Backup Help", "Instant Replacement", "Society Plans"].map(s => {
+                const targetService = s === "Backup Help" || s === "Instant Replacement" ? "Instant Backup" : s === "Society Plans" ? "Monthly Plan" : s;
+                return (
+                  <p 
+                    key={s} 
+                    onClick={() => {
+                      setActiveService(targetService);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="text-white/40 text-sm mb-2 hover:text-white cursor-pointer transition-colors"
+                  >
+                    {s}
+                  </p>
+                );
+              })}
             </div>
             <div>
               <p className="text-white/50 text-xs font-bold tracking-widest uppercase mb-4">Company</p>
