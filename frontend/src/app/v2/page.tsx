@@ -49,10 +49,23 @@ export default function V2Page() {
         },
       });
 
-      tl.to(contentRef.current, { scale: 8, duration: 2, ease: "power2.in" });
+      // Slide image to the right and fade out
+      tl.to(imageRef.current, { x: "100vw", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 0);
+      
+      // Move and shrink text to top-left logo position
+      tl.to(textRef.current, {
+        left: "2rem",
+        top: "2rem",
+        xPercent: 0,
+        yPercent: 0,
+        scale: 0.16,
+        transformOrigin: "left top",
+        color: "rgba(245, 245, 247, 0.8)",
+        duration: 1.5,
+        ease: "power2.inOut"
+      }, 0);
+
       tl.to(pinRef.current, { backgroundColor: "#2A005E", duration: 1 }, 0);
-      tl.to(textRef.current, { opacity: 0, duration: 0.8 }, 0.2);
-      tl.to(imageRef.current, { opacity: 0, duration: 0.8 }, 0.2);
       tl.to("#hero-header nav", { color: "#ffffff", duration: 0.8 }, 0);
       tl.to("#hero-header .cta-btn", { color: "#ffffff", borderColor: "rgba(255,255,255,0.4)", backgroundColor: "rgba(255,255,255,0.1)", duration: 0.8 }, 0);
       tl.to(societyRef.current, { opacity: 1, pointerEvents: "auto", duration: 1, ease: "power2.out" }, 1.2);
@@ -69,18 +82,18 @@ export default function V2Page() {
         <div ref={pinRef} className="relative h-screen w-full flex flex-col items-center overflow-hidden bg-[#F5F5F7]">
           <HeaderV2 />
           <div ref={contentRef} className="relative w-full flex-1 flex flex-col items-center justify-center origin-center">
-            <h1 ref={textRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] md:text-[200px] font-black text-[#2A005E]/90 select-none whitespace-nowrap z-0 tracking-tighter">
+            <h1 ref={textRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black text-[#2A005E]/90 select-none whitespace-nowrap z-0 tracking-tighter">
               GetMyHelp
             </h1>
             <div ref={imageRef} className="absolute z-10 top-[15vh] bottom-0 left-0 right-0 flex justify-center items-start pointer-events-none">
-              <img src="/hero-image.png" alt="GetMyHelp Hero" className="h-full w-auto object-contain drop-shadow-2xl scale-[1.3]" />
+              <img src="/hero-image.png" alt="GetMyHelp Hero" className="h-[50vh] md:h-[65vh] lg:h-[75vh] w-auto max-w-[85vw] md:max-w-[70vw] object-contain drop-shadow-2xl scale-[1.1] md:scale-[1.25]" />
             </div>
           </div>
-          <div ref={societyRef} className="absolute inset-0 z-20 flex items-center justify-center px-8 md:px-16 pt-24 pb-12 opacity-0 pointer-events-none">
-            <div className="flex flex-col md:flex-row w-full max-w-[1400px] h-full items-center gap-12">
-              <div className="flex-1 flex flex-col justify-center text-left order-2 md:order-1 pr-4 md:pr-12">
+          <div ref={societyRef} className="absolute inset-0 z-20 flex items-center justify-center px-4 md:px-[5vw] pt-24 pb-12 opacity-0 pointer-events-none">
+            <div className="flex flex-col md:flex-row w-full w-[95vw] h-full items-center gap-[5vw]">
+              <div className="flex-1 flex flex-col justify-center text-left order-2 md:order-1 pr-4 md:pr-[3vw]">
                 <div className="relative inline-block w-fit mb-8 md:mb-10">
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.05] tracking-tight">
+                  <h2 className="text-[10vw] md:text-[6vw] font-black text-white leading-[1.05] tracking-tight">
                     Your <br />
                     <span className="bg-gradient-to-r from-[#C898FF] to-[#FF9CEE] bg-clip-text text-transparent">society,</span>{" "}
                     <br />your rates.
@@ -97,7 +110,7 @@ export default function V2Page() {
                 <p className="text-base text-[#F5F5F7]/70 leading-relaxed">Not whatever the last resident agreed to.</p>
               </div>
               <div className="relative flex-1 flex justify-center items-center h-full w-full order-1 md:order-2">
-                <img src="/society-heropage.png" className="w-full max-h-[75vh] object-contain drop-shadow-2xl scale-[1.15]" alt="Society" />
+                <img src="/society-heropage.png" className="w-[85%] md:w-full max-h-[40vh] md:max-h-[70vh] object-contain drop-shadow-2xl scale-[1.0] md:scale-[1.1]" alt="Society" />
               </div>
             </div>
           </div>
@@ -107,10 +120,10 @@ export default function V2Page() {
       {/* ===== ZONE 2: Main Page Content (Pronto style) ===== */}
 
       {/* WHY US — left aligned headline + 3 benefit cards */}
-      <section id="why-us" className="w-full bg-[#F0F2F5] px-6 md:px-16 py-16">
-        <div className="max-w-[1100px] mx-auto">
-          <p className="text-xs font-bold tracking-[0.2em] text-[#2A005E] uppercase mb-3">WHY GETMYHELP</p>
-          <h2 className="text-5xl md:text-7xl font-black text-gray-900 leading-[1.0] tracking-tight mb-3">
+      <section id="why-us" className="w-full bg-[#F0F2F5] px-6 md:px-[5vw] py-[8vh]">
+        <div className="w-full max-w-[95vw] mx-auto">
+          <p className="text-[3vw] md:text-[1vw] font-bold tracking-[0.2em] text-[#2A005E] uppercase mb-3">WHY GETMYHELP</p>
+          <h2 className="text-[10vw] md:text-[5vw] font-black text-gray-900 leading-[1.0] tracking-tight mb-3">
             No more planning<br />around your house<br />help.
           </h2>
           <p className="text-gray-500 text-base mb-10">Verified helpers, standard pricing, instant backups — all managed for your society.</p>
@@ -131,10 +144,10 @@ export default function V2Page() {
       </section>
 
       {/* OUR SERVICES — service grid cards like Pronto */}
-      <section className="w-full bg-[#F0F2F5] px-6 md:px-16 py-12">
-        <div className="max-w-[1100px] mx-auto">
-          <p className="text-xs font-bold tracking-[0.2em] text-[#2A005E] uppercase mb-3">OUR SERVICES</p>
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight mb-10">
+      <section className="w-full bg-[#F0F2F5] px-6 md:px-[5vw] py-[6vh]">
+        <div className="w-full max-w-[95vw] mx-auto">
+          <p className="text-[3vw] md:text-[1vw] font-bold tracking-[0.2em] text-[#2A005E] uppercase mb-3">OUR SERVICES</p>
+          <h2 className="text-[9vw] md:text-[4vw] font-black text-gray-900 leading-tight mb-10">
             Trusted house help,<br />standardised for your society.
           </h2>
 
@@ -162,43 +175,48 @@ export default function V2Page() {
       {activeService && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setActiveService(null)}>
           <div 
-            className="bg-white w-full max-w-[1200px] h-full max-h-[90vh] rounded-3xl overflow-y-auto relative shadow-2xl animate-in fade-in zoom-in-95 duration-200"
+            className="bg-white w-full w-[95vw] h-full max-h-[95vh] rounded-3xl overflow-y-auto relative shadow-2xl animate-in fade-in zoom-in-95 duration-200"
             onClick={e => e.stopPropagation()}
           >
             {/* Close Button */}
             <button 
               onClick={() => setActiveService(null)}
-              className="absolute top-6 right-6 w-12 h-12 bg-white/80 backdrop-blur hover:bg-gray-100 border border-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-800 text-xl font-light z-50 transition-colors shadow-sm"
+              className="absolute top-6 right-6 w-[4vw] h-[4vw] min-w-[40px] min-h-[40px] bg-white/80 backdrop-blur hover:bg-gray-100 border border-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-800 text-xl font-light z-50 transition-colors shadow-sm"
             >
               ✕
             </button>
             
             {/* 1. Top Hero Section */}
-            <div className="relative w-full px-8 md:px-16 py-12 md:py-20 overflow-hidden bg-white">
+            <div className="relative w-full px-8 md:px-[5vw] py-12 md:py-[8vh] overflow-hidden bg-white">
               {/* Purple Gradient */}
               <div className="absolute top-0 left-0 w-[70%] h-[150%] bg-gradient-to-br from-[#F3E8FF] to-transparent opacity-80 pointer-events-none -translate-x-1/4 -translate-y-1/4 rounded-full blur-3xl"></div>
               
-              <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+              <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-[4vw] items-center">
                 <div>
-                  <div className="flex gap-2 text-xs font-semibold text-gray-400 mb-8">
+                  <div className="flex gap-2 text-[2.5vw] md:text-[0.8vw] font-semibold text-gray-400 mb-[4vh]">
                     <span>Home</span> <span className="text-gray-300">/</span>
                     <span>Services</span> <span className="text-gray-300">/</span>
                     <span className="text-gray-800">{activeService}</span>
                   </div>
-                  <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-6 leading-[1.05] tracking-tight">{activeService}</h2>
+                  <h2 className="text-[12vw] md:text-[5vw] font-black text-gray-900 mb-6 leading-[1.05] tracking-tight">{activeService}</h2>
                   <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-[95%]">
                     These are some basic services we provide, and everything can be customised according to you and your subscription plan.
                   </p>
-                  <button className="bg-[#2A005E] text-white px-8 py-4 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-[#2A005E]/20">
+                  <a 
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdT1TPAeiWG5AJGKwaTA0W-QZXnsLAzxj6hhF42Dz7XG5Abxw/viewform?usp=publish-editor" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-block bg-[#2A005E] text-white px-8 py-4 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-lg shadow-[#2A005E]/20 text-center"
+                  >
                     Request for Society
-                  </button>
+                  </a>
                 </div>
                 
-                <div className="bg-[#F5F5F7] rounded-[2rem] aspect-[4/3] flex items-center justify-center p-12">
+                <div className="bg-[#F5F5F7] rounded-[2rem] aspect-[4/3] flex items-center justify-center p-6 md:p-12">
                   <img 
                     src={servicesData.find(s => s.label === activeService)?.img} 
                     alt={activeService} 
-                    className="w-full h-full object-contain" 
+                    className="max-h-[30vh] md:max-h-full w-full h-full object-contain" 
                   />
                 </div>
               </div>
@@ -266,9 +284,14 @@ export default function V2Page() {
                  <p className="text-gray-600 mb-8 relative z-10 text-lg">
                    Join the waitlist to be the first in your society to get started.
                  </p>
-                 <button className="bg-[#2A005E] text-white px-10 py-4 rounded-full font-bold text-sm hover:scale-105 transition-transform relative z-10 shadow-xl shadow-[#2A005E]/20">
-                   Register Interest →
-                 </button>
+                 <a 
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdT1TPAeiWG5AJGKwaTA0W-QZXnsLAzxj6hhF42Dz7XG5Abxw/viewform?usp=publish-editor" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-block bg-[#2A005E] text-white px-10 py-4 rounded-full font-bold text-sm hover:scale-105 transition-transform relative z-10 shadow-xl shadow-[#2A005E]/20 text-center"
+                  >
+                    Register Interest →
+                  </a>
                </div>
             </div>
 
@@ -277,8 +300,8 @@ export default function V2Page() {
       )}
 
       {/* HOW IT WORKS — Waterfall Timeline */}
-      <section id="how-it-works" className="w-full bg-[#0A0A0A] px-6 md:px-16 py-24">
-        <div className="max-w-[1200px] mx-auto">
+      <section id="how-it-works" className="w-full bg-[#0A0A0A] px-6 md:px-[5vw] py-[12vh]">
+        <div className="w-full max-w-[95vw] mx-auto">
           
           <div className="grid grid-cols-1 md:grid-cols-3 border-x border-white/10 relative">
             {/* Desktop grid vertical lines */}
@@ -342,14 +365,14 @@ export default function V2Page() {
 
 
       {/* FAQ — Accordion like Pronto */}
-      <section id="faqs" className="w-full bg-[#F0F2F5] px-6 md:px-16 py-16 border-t border-gray-200">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-8 lg:gap-12 items-center">
+      <section id="faqs" className="w-full bg-[#F0F2F5] px-6 md:px-[5vw] py-[8vh] border-t border-gray-200">
+        <div className="w-full max-w-[95vw] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-[4vw] items-center">
             
             {/* Left: FAQs */}
             <div className="flex flex-col lg:pr-8">
-              <p className="text-xs font-bold tracking-[0.2em] text-[#2A005E] uppercase mb-3">FAQ'S</p>
-              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-10">
+              <p className="text-[3vw] md:text-[1vw] font-bold tracking-[0.2em] text-[#2A005E] uppercase mb-3">FAQ'S</p>
+              <h2 className="text-[10vw] md:text-[4vw] font-black text-gray-900 mb-10">
                 Frequently Asked<br />Questions
               </h2>
 
@@ -398,9 +421,14 @@ export default function V2Page() {
             </h2>
             <p className="text-gray-500 text-base">Be the first society to get set up. Register your interest today.</p>
           </div>
-          <button className="bg-[#2A005E] text-white font-bold px-8 py-4 rounded-full text-base hover:scale-105 hover:shadow-lg transition-all whitespace-nowrap">
+          <a 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdT1TPAeiWG5AJGKwaTA0W-QZXnsLAzxj6hhF42Dz7XG5Abxw/viewform?usp=publish-editor" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="inline-block bg-[#2A005E] text-white font-bold px-8 py-4 rounded-full text-base hover:scale-105 hover:shadow-lg transition-all whitespace-nowrap text-center"
+          >
             Register interest →
-          </button>
+          </a>
         </div>
       </section>
 

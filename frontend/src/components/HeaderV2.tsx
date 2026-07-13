@@ -17,12 +17,14 @@ export default function HeaderV2() {
 
       {/* Right side CTA styled like the reference image (glassy rectangle) */}
       <div className="flex-1 flex justify-end">
-        <Link 
-          href="#book" 
+        <a 
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdT1TPAeiWG5AJGKwaTA0W-QZXnsLAzxj6hhF42Dz7XG5Abxw/viewform?usp=publish-editor" 
+          target="_blank"
+          rel="noopener noreferrer"
           className="cta-btn bg-[#5100B2]/10 backdrop-blur-md border border-[#5100B2]/20 hover:bg-[#5100B2]/20 text-[#5100B2] px-5 py-2 rounded-md text-sm font-semibold transition-all shadow-[0_4px_14px_0_rgba(81,0,178,0.1)]"
         >
           Set it in your society
-        </Link>
+        </a>
       </div>
     </header>
   );
