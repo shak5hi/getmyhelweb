@@ -563,48 +563,106 @@ export default function V2Page() {
         </div>
       </section>
 
-      {/* FOOTER — Dark like Pronto */}
-      <footer className="w-full bg-[#0A0A0A] px-6 md:px-16 py-16">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
-            <div>
-              <p className="text-white font-black text-xl mb-4">GetMyHelp</p>
-              <p className="text-white/40 text-sm leading-relaxed">Society-grade house help, standardised and stress-free.</p>
+      {/* FOOTER — Dark and Editorial */}
+      <footer className="w-full bg-[#0A0A0A] px-6 md:px-16 py-16 text-white">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+            
+            {/* Logo & Vision Column */}
+            <div className="col-span-12 md:col-span-4 flex flex-col items-start gap-4">
+              <span className="text-2xl font-black tracking-tight">
+                GetMyHelp<span className="text-[#E83F9C] font-normal text-lg">.in</span>
+              </span>
+              <p className="text-white/60 text-sm leading-relaxed max-w-sm">
+                We take complete responsibility for your domestic staffing. No negotiation, no attendance worries, standard flat rates. Completely managed care.
+              </p>
+              <div className="mt-2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 w-fit">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0E9AAE] animate-pulse"></span>
+                <span className="text-[10px] font-bold tracking-wider text-white/80 uppercase">Private Beta Active</span>
+              </div>
             </div>
-            <div>
-              <p className="text-white/50 text-xs font-bold tracking-widest uppercase mb-4">Services</p>
-              {["Daily Maid", "Cooking Help", "Backup Help", "Instant Replacement", "Society Plans"].map(s => {
-                const targetService = s === "Backup Help" || s === "Instant Replacement" ? "Instant Backup" : s === "Society Plans" ? "Monthly Plan" : s;
-                return (
-                  <p 
-                    key={s} 
+
+            {/* Services Column */}
+            <div className="col-span-12 sm:col-span-4 md:col-span-3 flex flex-col items-start gap-4">
+              <span className="text-[#C898FF] text-xs font-bold tracking-widest uppercase">Services</span>
+              <ul className="flex flex-col gap-2.5 text-sm text-white/60 font-medium w-full">
+                {[
+                  { display: "Daily Household Cooks", target: "Cooking Help" },
+                  { display: "Daily Home Cleaners", target: "Daily Maid" },
+                  { display: "Full-Time Maid Staff", target: "Monthly Plan" },
+                  { display: "Managed Backups", target: "Instant Backup" }
+                ].map(({ display, target }) => (
+                  <li 
+                    key={display}
                     onClick={() => {
-                      setActiveService(targetService);
+                      setActiveService(target);
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
-                    className="text-white/40 text-sm mb-2 hover:text-white cursor-pointer transition-colors"
+                    className="hover:text-white transition-colors cursor-pointer"
                   >
-                    {s}
-                  </p>
-                );
-              })}
+                    {display}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div>
-              <p className="text-white/50 text-xs font-bold tracking-widest uppercase mb-4">Company</p>
-              {["About Us", "Blog", "Careers", "Contact Us"].map(s => (
-                <p key={s} className="text-white/40 text-sm mb-2 hover:text-white cursor-pointer transition-colors">{s}</p>
-              ))}
+
+            {/* Contact Us Column */}
+            <div className="col-span-12 sm:col-span-4 md:col-span-3 flex flex-col items-start gap-4">
+              <span className="text-[#C898FF] text-xs font-bold tracking-widest uppercase">Contact Us</span>
+              <ul className="flex flex-col gap-3 text-sm text-white/60 font-medium">
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-[#E83F9C] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h2a2 2 0 012 1.72 11.53 11.53 0 00.82 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 11.3 11.3 0 002.81.82A2 2 0 0122 17v2a2 2 0 01-2 2 17 17 0 01-17-17z" />
+                  </svg>
+                  <a href="tel:+919818595170" className="hover:text-white transition-colors">
+                    +91 9818595170
+                  </a>
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-[#E83F9C] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <a href="mailto:support@getmyhelp.in" className="hover:text-white transition-colors">
+                    support@getmyhelp.in
+                  </a>
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-4 h-4 text-[#E83F9C] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>
+                    Ghaziabad, India<br />
+                    <span className="text-[10px] text-white/40">Serving Ghaziabad</span>
+                  </span>
+                </li>
+              </ul>
             </div>
-            <div>
-              <p className="text-white/50 text-xs font-bold tracking-widest uppercase mb-4">Legal</p>
-              {["Terms & Conditions", "Privacy Policy", "Cancellation Policy"].map(s => (
-                <p key={s} className="text-white/40 text-sm mb-2 hover:text-white cursor-pointer transition-colors">{s}</p>
-              ))}
+
+            {/* Socials Column */}
+            <div className="col-span-12 sm:col-span-4 md:col-span-2 flex flex-col items-start gap-4">
+              <span className="text-[#C898FF] text-xs font-bold tracking-widest uppercase">Follow Our Journey</span>
+              <div className="flex flex-col gap-2 text-sm">
+                <a href="#" className="text-white/60 hover:text-white transition-colors flex items-center gap-1.5 group">
+                  <span>Twitter</span>
+                  <span className="text-[10px] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
+                </a>
+                <a href="#" className="text-white/60 hover:text-white transition-colors flex items-center gap-1.5 group">
+                  <span>Instagram</span>
+                  <span className="text-[10px] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
+                </a>
+                <a href="#" className="text-white/60 hover:text-white transition-colors flex items-center gap-1.5 group">
+                  <span>LinkedIn</span>
+                  <span className="text-[10px] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
+                </a>
+              </div>
             </div>
+
           </div>
+          
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-white/30 text-xs">© 2025 GetMyHelp. All rights reserved.</p>
-            <p className="text-white/30 text-xs">help@getmyhelp.in</p>
+            <p className="text-white/30 text-xs">support@getmyhelp.in</p>
           </div>
         </div>
       </footer>
