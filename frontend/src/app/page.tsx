@@ -38,6 +38,9 @@ export default function V2Page() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Set initial center transform state to avoid conflict with Tailwind's -translate classes
+      gsap.set(textRef.current, { xPercent: -50, yPercent: -50 });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -82,7 +85,7 @@ export default function V2Page() {
         <div ref={pinRef} className="relative h-screen w-full flex flex-col items-center overflow-hidden bg-[#F5F5F7]">
           <HeaderV2 />
           <div ref={contentRef} className="relative w-full flex-1 flex flex-col items-center justify-center origin-center">
-            <h1 ref={textRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black text-[#2A005E]/90 select-none whitespace-nowrap z-0 tracking-tighter">
+            <h1 ref={textRef} className="absolute top-1/2 left-1/2 text-[18vw] font-black text-[#2A005E]/90 select-none whitespace-nowrap z-0 tracking-tighter">
               GetMyHelp
             </h1>
             <div ref={imageRef} className="absolute z-10 top-[15vh] bottom-0 left-0 right-0 flex justify-center items-start pointer-events-none">
