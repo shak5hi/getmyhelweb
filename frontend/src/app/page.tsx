@@ -213,7 +213,7 @@ export default function V2Page() {
         <div ref={pinRef} className="relative h-screen w-full flex flex-col items-center overflow-hidden bg-[#F5F5F7]">
           <HeaderV2 />
           <div ref={contentRef} className="relative w-full flex-1 flex flex-col items-center justify-center origin-center">
-            <h1 ref={textRef} className="absolute top-1/2 left-1/2 text-[18vw] font-black text-[#2A005E]/90 select-none whitespace-nowrap z-0 tracking-tighter">
+            <h1 ref={textRef} className="absolute top-1/2 left-1/2 text-[18vw] font-black select-none whitespace-nowrap z-0 tracking-tighter" style={{ color: '#2A005E' }}>
               GetMyHelp
             </h1>
             <div ref={imageRef} className="absolute z-10 top-[15vh] bottom-0 left-0 right-0 flex justify-center items-start pointer-events-none">
@@ -434,6 +434,14 @@ export default function V2Page() {
       <section id="how-it-works" className="w-full bg-[#0A0A0A] px-6 md:px-[5vw] py-[12vh]">
         <div className="w-full max-w-[95vw] mx-auto">
           
+          {/* Section Heading */}
+          <div className="mb-16 text-left">
+            <p className="text-xs font-bold tracking-[0.2em] text-[#C898FF] uppercase mb-3">HOW IT WORKS</p>
+            <h2 className="text-3xl md:text-5xl font-black text-white leading-tight tracking-tight">
+              Simple, transparent, <br />and automated.
+            </h2>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 border-x border-white/10 relative">
             {/* Desktop grid vertical lines */}
             <div className="hidden md:block absolute top-0 bottom-0 left-[33.33%] w-px bg-white/10" />
@@ -462,6 +470,14 @@ export default function V2Page() {
                 </p>
               </div>
 
+              {/* Mobile Arrow 1 -> 2 */}
+              <div className="flex md:hidden justify-center text-white/30 text-2xl my-2">↓</div>
+
+              {/* Desktop Arrow 1 -> 2 */}
+              <div className="hidden md:block absolute top-[140px] left-[29%] z-30 text-[#C898FF]/40 text-4xl select-none pointer-events-none rotate-[15deg]">
+                ➔
+              </div>
+
               {/* Step 2 Box */}
               <div className="md:absolute md:top-40 md:left-[33.33%] md:w-[33.33%] md:pr-4 flex flex-col items-start md:pl-6">
                 <div className="bg-[#C898FF] px-4 py-2 mb-1 inline-block border border-black/10">
@@ -473,6 +489,14 @@ export default function V2Page() {
                 <p className="text-white/60 text-sm leading-relaxed max-w-[280px]">
                   Background checks, ID verification, and training — every helper is fully cleared before entry.
                 </p>
+              </div>
+
+              {/* Mobile Arrow 2 -> 3 */}
+              <div className="flex md:hidden justify-center text-white/30 text-2xl my-2">↓</div>
+
+              {/* Desktop Arrow 2 -> 3 */}
+              <div className="hidden md:block absolute top-[270px] left-[62%] z-30 text-[#C898FF]/40 text-4xl select-none pointer-events-none rotate-[15deg]">
+                ➔
               </div>
 
               {/* Step 3 Box */}
