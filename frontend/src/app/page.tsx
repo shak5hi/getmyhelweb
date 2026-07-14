@@ -161,6 +161,7 @@ export default function V2Page() {
   const textRef = useRef<HTMLHeadingElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const societyRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeService, setActiveService] = useState<string | null>(null);
 
@@ -179,6 +180,9 @@ export default function V2Page() {
           pinSpacing: true,
         },
       });
+
+      // Fade out scroll indicator immediately upon scroll
+      tl.to(scrollIndicatorRef.current, { opacity: 0, y: 15, duration: 0.4 }, 0);
 
       // Slide image to the right and fade out
       tl.to(imageRef.current, { x: "100vw", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 0);
@@ -220,6 +224,15 @@ export default function V2Page() {
               <img src="/hero-image.png" alt="GetMyHelp Hero" className="h-[50vh] md:h-[65vh] lg:h-[75vh] w-auto max-w-[85vw] md:max-w-[70vw] object-contain drop-shadow-2xl scale-[1.1] md:scale-[1.25]" />
             </div>
           </div>
+
+          {/* Minimal Scroll Down Sign */}
+          <div ref={scrollIndicatorRef} className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity pointer-events-none">
+            <span className="text-[9px] tracking-[0.3em] text-[#2A005E] font-bold uppercase select-none">Scroll</span>
+            <div className="w-5 h-8 border-2 border-[#2A005E] rounded-full flex justify-center p-1">
+              <div className="w-1.5 h-1.5 bg-[#2A005E] rounded-full animate-bounce"></div>
+            </div>
+          </div>
+
           <div ref={societyRef} className="absolute inset-0 z-20 flex items-center justify-center px-4 md:px-[5vw] pt-24 pb-12 opacity-0 pointer-events-none">
             <div className="flex flex-col md:flex-row w-full w-[95vw] h-full items-center gap-[5vw]">
               <div className="flex-1 flex flex-col justify-center text-left order-2 md:order-1 pr-4 md:pr-[3vw]">
