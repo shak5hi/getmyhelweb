@@ -1,61 +1,78 @@
-import Header from "@/components/Header";
+import type { Metadata } from "next";
 import WaitlistForm from "@/components/WaitlistForm";
+import SocietyEnquiryLink from "@/components/ui/SocietyEnquiryLink";
+import { CONTACT } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Get in touch with GetMyHelp — society enquiries, resident waitlist, phone and email.",
+  alternates: { canonical: "/contact" },
+};
 
 export default function Contact() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#ececec] text-zinc-900 font-sans selection:bg-purple-200 selection:text-purple-900">
-      <Header />
+    <main>
+      <section aria-labelledby="contact-title" className="mx-auto max-w-[1280px] px-5 pb-16 pt-10 sm:px-8 md:pt-16">
+        <p data-reveal className="text-base font-bold text-purple">
+          Contact
+        </p>
+        <h1 id="contact-title" data-reveal className="display-xl mt-5 max-w-[16ch] text-balance text-ink">
+          Let’s talk about your society.
+        </h1>
+        <p data-reveal className="lede mt-6 max-w-2xl text-ink">
+          Whether you’re on the committee or a resident hoping to bring GetMyHelp home, here’s the best way to reach us.
+        </p>
 
-      <main className="flex-1 w-full pt-40 pb-20 px-6 md:px-12 lg:px-32 max-w-7xl mx-auto flex flex-col gap-24 relative">
-        
-        {/* Contact Layout mimicking the provided image */}
-        <section className="flex flex-col gap-16 relative z-10">
-          <div>
-            <h1 className="text-7xl md:text-9xl font-black tracking-tight text-[#2d2e33] leading-none mb-12">
-              CONTACT US
-            </h1>
-            <div className="w-32 h-5 bg-[#2d2e33] mb-16"></div>
+        <dl className="mt-14 grid gap-4 sm:grid-cols-3">
+          <div data-reveal className="rounded-[28px] bg-lilac p-7 sm:p-8">
+            <dt className="font-bold text-purple">Phone</dt>
+            <dd className="mt-3 text-2xl font-extrabold tracking-[-0.02em]">
+              <a href={CONTACT.phoneHref} className="whitespace-nowrap text-link text-ink">
+                {CONTACT.phoneDisplay}
+              </a>
+            </dd>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-3xl">
-            <div className="flex flex-col gap-4">
-              <h3 className="text-xl md:text-2xl font-black text-[#1a1b1e] uppercase">
-                CONTACTS
-              </h3>
-              <div className="flex flex-col gap-3 text-lg md:text-xl text-[#3a3b40] font-medium mt-2">
-                <a href="tel:+919818595170" className="hover:text-[#7c3aed] transition-colors">+91 9818595170</a>
-                <a href="mailto:support@getmyhelp.in" className="hover:text-[#7c3aed] transition-colors">support@getmyhelp.in</a>
-              </div>
+          <div data-reveal className="rounded-[28px] bg-lilac p-7 sm:p-8">
+            <dt className="font-bold text-purple">Email</dt>
+            <dd className="mt-3 break-words text-2xl font-extrabold tracking-[-0.02em]">
+              <a href={CONTACT.emailHref} className="text-link text-ink">
+                {CONTACT.email}
+              </a>
+            </dd>
+          </div>
+          <div data-reveal className="rounded-[28px] bg-lilac p-7 sm:p-8">
+            <dt className="font-bold text-purple">Based in</dt>
+            <dd className="mt-3 text-2xl font-extrabold tracking-[-0.02em] text-ink">{CONTACT.location}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section aria-label="Ways to get started" className="mx-auto max-w-[1280px] px-5 pb-24 sm:px-8 md:pb-32">
+        <div className="grid gap-5 lg:grid-cols-2">
+          <article data-reveal className="on-dark flex flex-col rounded-[32px] bg-purple p-7 text-paper sm:p-10">
+            <p className="font-bold text-lavender">For RWA, AOA and BOM members</p>
+            <h2 className="display-md mt-3">Send a society enquiry.</h2>
+            <p className="mt-4 leading-relaxed text-paper/90">
+              Share a few details about your society through our short enquiry form, and we’ll arrange a conversation
+              with your committee. An enquiry doesn’t commit your society to anything.
+            </p>
+            <div className="mt-auto pt-10">
+              <SocietyEnquiryLink className="btn btn-light">Open the society enquiry form</SocietyEnquiryLink>
             </div>
-            
-            <div className="flex flex-col gap-4">
-              <h3 className="text-xl md:text-2xl font-black text-[#1a1b1e] uppercase">
-                ADDRESS
-              </h3>
-              <div className="flex flex-col gap-3 text-lg md:text-xl text-[#3a3b40] font-medium mt-2">
-                <p>Ghaziabad, India</p>
-              </div>
+          </article>
+
+          <article data-reveal className="flex flex-col gap-6 rounded-[32px] bg-paper-raised p-7 sm:p-10">
+            <div>
+              <p className="font-bold text-purple">For residents</p>
+              <h2 className="display-md mt-3 text-ink">Join the waitlist.</h2>
+              <p className="mt-4 leading-relaxed text-ink">
+                Leave your phone number or email and we’ll let you know when GetMyHelp is available in your society.
+              </p>
             </div>
-          </div>
-        </section>
-
-        {/* Waitlist Form Section */}
-        <section className="flex flex-col items-start pt-10">
-          <div className="mb-10 max-w-xl">
-            <h2 className="text-3xl md:text-4xl font-black text-[#1a082e] mb-4">Want early access?</h2>
-            <p className="text-zinc-600 font-medium text-lg">Join our exclusive waitlist today and we'll reach out to you.</p>
-          </div>
-          <div className="w-full max-w-md">
-            <WaitlistForm />
-          </div>
-        </section>
-
-      </main>
-
-      {/* Minimal Footer */}
-      <footer className="w-full text-zinc-500 py-8 text-center text-xs border-t border-zinc-300 z-10 relative mt-auto">
-        <p>© {new Date().getFullYear()} GetMyHelp.in. All rights reserved.</p>
-      </footer>
-    </div>
+            <WaitlistForm variant="compact" />
+          </article>
+        </div>
+      </section>
+    </main>
   );
 }

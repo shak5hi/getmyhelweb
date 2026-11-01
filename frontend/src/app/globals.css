@@ -1,89 +1,466 @@
 @import "tailwindcss";
 
+/*
+ * GetMyHelp design tokens.
+ * A split-complementary scheme around the brand violet (hue ~264°):
+ * - 60%: warm paper and lilac grounds
+ * - 30%: the violets, for actions and the night bands
+ * - 10%: marigold, violet's complement, for the one thing to look at
+ * Peach (marigold's warm neighbour) and sage (the cooler split) give whole
+ * sections a field of their own. Surfaces are separated by tone, not lines.
+ */
 :root {
-  --background: #FFFFFF;
-  --foreground: #1A0E1F;
-  --color-primary: #7B2FD1;
-  --color-accent: #E83F9C;
-  --color-highlight: #FFD400;
-  --color-tertiary: #0E9AAE;
+  --paper: #f7f4ee;
+  --paper-raised: #fdfcf9;
+  --lilac: #eee8f7;
+  --lilac-strong: #ddd1f0;
+  --lavender: #c9b6f2;
+  --ink: #1b1525;
+  --ink-muted: #4d4658;
+  --purple: #5a2ca0;
+  --purple-hover: #4a2189;
+  --purple-deep: #24123f;
+  --purple-night: #190c2e;
+  --marigold: #f2b33d;
+  --marigold-hover: #f7c460;
+  --marigold-soft: #fbe7bd;
+  --marigold-ink: #8a5300;
+  --peach: #f7dfcd;
+  --sage: #dfe6d1;
+  --sage-ink: #3b5e45;
+  --line: rgb(27 21 37 / 0.1);
+  --focus: var(--purple);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--color-primary);
-  --color-accent: var(--color-accent);
-  --color-highlight: var(--color-highlight);
-  --color-tertiary: var(--color-tertiary);
-  --font-display: var(--font-outfit), sans-serif;
-  --font-sans: var(--font-inter), sans-serif;
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-lilac: var(--lilac);
+  --color-lilac-strong: var(--lilac-strong);
+  --color-lavender: var(--lavender);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-purple: var(--purple);
+  --color-purple-hover: var(--purple-hover);
+  --color-purple-deep: var(--purple-deep);
+  --color-purple-night: var(--purple-night);
+  --color-marigold: var(--marigold);
+  --color-marigold-soft: var(--marigold-soft);
+  --color-marigold-ink: var(--marigold-ink);
+  --color-peach: var(--peach);
+  --color-sage: var(--sage);
+  --color-sage-ink: var(--sage-ink);
+  --color-line: var(--line);
+  --font-sans: var(--font-hanken), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
 }
 
 html {
-  scroll-behavior: smooth;
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--paper);
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
+  /* Keyboard focus and anchor jumps clear the sticky header */
+  scroll-padding-top: 88px;
+}
+
+a,
+button,
+summary {
+  touch-action: manipulation;
+}
+
+/* Native smooth scrolling only when Lenis isn't driving the page */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
-  overflow-x: hidden;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  overflow-x: clip;
+  min-height: 100svh;
+}
+
+/* Anchored sections land below the sticky header */
+[id] {
+  scroll-margin-top: 88px;
+}
+
+::selection {
+  background: var(--lavender);
+  color: var(--purple-night);
+}
+
+/* Dark bands swap the focus colour so the ring stays visible */
+.on-dark {
+  --focus: var(--marigold);
+  --line: rgb(247 244 238 / 0.14);
+  --color-line: rgb(247 244 238 / 0.14);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@layer components {
+  /* ---------- Type ---------- */
+  /* Headlines are set in the serif, at a book weight, a touch larger than a sans would be */
+  .display-xl,
+  .hero-title,
+  .display-lg,
+  .display-md {
+    font-family: var(--font-display);
+    font-weight: 450;
+    font-optical-sizing: auto;
+  }
+  .display-xl {
+    font-size: clamp(2.8rem, 6.4vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+  }
+  .hero-title {
+    font-size: clamp(2.6rem, 5.2vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+  .display-lg {
+    font-size: clamp(2.3rem, 4.2vw, 3.85rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .display-md {
+    font-size: clamp(1.7rem, 2.7vw, 2.35rem);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+  .lede {
+    font-size: clamp(1.075rem, 1.35vw, 1.25rem);
+    line-height: 1.55;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3.25rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      transform 200ms var(--ease-out);
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-primary {
+    background: var(--purple);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: var(--purple-hover);
+  }
+
+  .btn-secondary {
+    background: var(--lilac);
+    color: var(--purple-deep);
+  }
+  .btn-secondary:hover {
+    background: var(--lilac-strong);
+  }
+
+  .btn-light {
+    background: var(--paper);
+    color: var(--purple-deep);
+  }
+  .btn-light:hover {
+    background: #fff;
+  }
+
+  /* The complement: the one button on a night band */
+  .btn-accent {
+    background: var(--marigold);
+    color: var(--purple-night);
+  }
+  .btn-accent:hover {
+    background: var(--marigold-hover);
+  }
+
+  .btn-ghost-light {
+    background: rgb(247 244 238 / 0.1);
+    color: var(--paper);
+  }
+  .btn-ghost-light:hover {
+    background: rgb(247 244 238 / 0.18);
+  }
+
+  .btn .btn-arrow {
+    transition: transform 220ms var(--ease-out);
+  }
+  .btn:hover .btn-arrow {
+    transform: translateX(3px);
+  }
+
+  /* Inline text link with a quiet underline */
+  .text-link {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.22em;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+    transition: text-decoration-color 160ms ease;
+  }
+  .text-link:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* ---------- Scroll reveal ----------
+ * Content is only hidden once JS has confirmed it can reveal it, and never
+ * when the visitor prefers reduced motion.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    transition:
+      opacity 800ms var(--ease-out),
+      transform 800ms var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js [data-reveal]:not([data-shown]) {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  .js [data-reveal="scale"]:not([data-shown]) {
+    transform: translateY(28px) scale(0.96);
+  }
+}
+
+/* Accordion panel height animation */
+.accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms var(--ease-out);
+}
+.accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.accordion-panel > div {
+  overflow: hidden;
+}
+
+/* ---------- Chapters ----------
+ * Each home-page chapter opens with its heading over the 3D world, then its
+ * content rises over the world on a sheet. Without the world, the headings
+ * sit on the page and dark ones bring their own colour.
+ */
+.moment {
   position: relative;
-  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 7rem 0 4rem;
 }
-
-/* Ambient Grain/Noise Overlay for Tactility */
-body::before {
-  content: "";
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  right: -50%;
-  bottom: -50%;
-  width: 200%;
-  height: 200%;
-  background: transparent url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E') repeat;
-  opacity: 0.035;
+.moment-dark {
+  background: var(--purple-deep);
+}
+.moment-wash {
+  display: none;
+}
+.has-world .moment {
+  min-height: 100svh;
+  padding: 7rem 0;
+}
+.has-world .moment-dark {
+  background: transparent;
+}
+.has-world .moment-wash {
+  display: block;
+  position: absolute;
+  inset: 0;
   pointer-events: none;
-  z-index: 9999;
+}
+.wash-light {
+  background: linear-gradient(90deg, var(--paper) 18%, rgb(247 244 238 / 0.6) 40%, transparent 58%);
+}
+.wash-dark {
+  background: linear-gradient(90deg, var(--purple-deep) 16%, rgb(36 18 63 / 0.55) 40%, transparent 60%);
+}
+.moment-right .wash-light {
+  background: linear-gradient(270deg, var(--paper) 18%, rgb(247 244 238 / 0.6) 40%, transparent 58%);
+}
+.moment-right .wash-dark {
+  background: linear-gradient(270deg, var(--purple-deep) 16%, rgb(36 18 63 / 0.55) 40%, transparent 60%);
+}
+.moment-center .wash-dark {
+  background: radial-gradient(ellipse 60% 55% at 50% 50%, rgb(36 18 63 / 0.85) 20%, rgb(36 18 63 / 0.4) 60%, transparent 85%);
+}
+@media (max-width: 767px) {
+  .has-world .moment {
+    align-items: flex-start;
+    padding-top: 6.5rem;
+  }
+  .wash-light {
+    background: linear-gradient(180deg, var(--paper) 30%, rgb(247 244 238 / 0.6) 48%, transparent 64%);
+  }
+  .wash-dark,
+  .moment-right .wash-dark,
+  .moment-center .wash-dark {
+    background: linear-gradient(180deg, var(--purple-deep) 30%, rgb(36 18 63 / 0.55) 48%, transparent 64%);
+  }
+  .moment-right .wash-light {
+    background: linear-gradient(180deg, var(--paper) 30%, rgb(247 244 238 / 0.6) 48%, transparent 64%);
+  }
 }
 
-/* Stamp Badge slow rotation */
-@keyframes rotate-slow {
+.sheet {
+  position: relative;
+}
+.has-world .sheet {
+  border-radius: 40px;
+  box-shadow: 0 -40px 90px -50px rgb(25 12 46 / 0.45);
+}
+@media (max-width: 767px) {
+  .has-world .sheet {
+    border-radius: 28px;
+  }
+}
+
+/* Chapter rail */
+.chapter-pip {
+  transition:
+    transform 300ms var(--ease-out),
+    background-color 300ms ease;
+}
+.chapter-dot[data-active="true"] .chapter-pip {
+  background: var(--purple);
+  transform: scale(1.9);
+}
+.chapter-label {
+  transform: translateX(6px);
+  transition:
+    opacity 200ms ease,
+    transform 250ms var(--ease-out);
+}
+.chapter-dot:hover .chapter-label,
+.chapter-dot:focus-visible .chapter-label {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Hero story checklist ----------
+ * Rows tick off as the helper works through the flat; state set from JS.
+ */
+.story-row {
+  opacity: 0.45;
+  transition: opacity 400ms var(--ease-out);
+}
+.story-row[data-state="active"],
+.story-row[data-state="done"] {
+  opacity: 1;
+}
+.story-dot {
+  box-shadow: inset 0 0 0 1.5px rgb(90 44 160 / 0.35);
+  color: var(--purple);
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
+}
+.story-row[data-state="active"] .story-dot {
+  background: var(--lilac-strong);
+  box-shadow: none;
+}
+.story-row[data-state="done"] .story-dot {
+  background: var(--purple);
+  box-shadow: none;
+  color: #fff;
+}
+.story-check,
+.story-row[data-state="done"] .story-num {
+  display: none;
+}
+.story-row[data-state="done"] .story-check {
+  display: block;
+}
+.story-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 450ms var(--ease-out);
+}
+.story-row[data-state="active"] .story-detail {
+  grid-template-rows: 1fr;
+}
+/* On a phone the card shows only the step in progress */
+@media (max-width: 767px) {
+  .story-row:not([data-state="active"]) {
+    display: none;
+  }
+}
+
+.scroll-cue {
+  animation: scroll-cue 1.8s var(--ease-out) infinite;
+}
+@keyframes scroll-cue {
   from {
-    transform: rotate(0deg);
+    transform: translateY(-100%);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateY(200%);
   }
 }
 
-.badge-stamp {
-  animation: rotate-slow 70s linear infinite;
-  transform-origin: center;
+/* Pointer-driven tilt for the service cards; transform set from JS */
+.tilt {
+  transform-style: preserve-3d;
+  transition: transform 500ms var(--ease-out);
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .badge-stamp {
-    animation: none !important;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 
-/* Fade in animation utility */
-@keyframes fadeIn {
+/* Native dialog backdrop for service details */
+dialog.service-dialog::backdrop {
+  background: rgb(25 12 46 / 0.6);
+}
+dialog.service-dialog[open] {
+  animation: dialog-in 420ms var(--ease-out);
+}
+@keyframes dialog-in {
   from {
     opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateY(24px) scale(0.98);
   }
 }
 
-.animate-fade-in {
-  animation: fadeIn 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Things that stand in for the 3D world when it can't play */
+.has-world .world-hide {
+  display: none;
 }
